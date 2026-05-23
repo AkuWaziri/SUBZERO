@@ -19,13 +19,19 @@ export const Welcome: React.FC = () => {
         await signInWithGoogle();
       }
     } catch (error: any) {
-      if (error.code === 'auth/popup-closed-by-user') {
-        setAuthError('Sign-in popup was closed. Please try again or use the redirect method if popups are blocked.');
-      } else if (error.code === 'auth/popup-blocked') {
-        setAuthError('Popups are blocked by your browser. Please allow them or use the redirect method.');
+      console.error('Auth error details:', error);
+      const errCode = error?.code || '';
+      
+      if (errCode === 'auth/popup-closed-by-user') {
+        setAuthError('Sign-in popup was closed. Please try again or use the redirect fallback method.');
+      } else if (errCode === 'auth/popup-blocked') {
+        setAuthError('Popups are blocked by your browser. Please allow them or click the "Sign In (Redirect Fallback)" button.');
+      } else if (errCode === 'auth/unauthorized-domain') {
+        setAuthError(`This domain "${window.location.hostname}" is not authorized in your Firebase Project. To fix this, log in to your Firebase Console, navigate to "Authentication" -> "Settings" -> "Authorized Domains", and add "${window.location.hostname}" to the list.`);
+      } else if (errCode === 'auth/operation-not-allowed') {
+        setAuthError('Google Sign-In is not enabled. Go to Firebase Console -> Authentication -> Sign-In Method and enable the Google login provider.');
       } else {
-        console.error('Auth error:', error);
-        setAuthError('Authentication failed. Please try again.');
+        setAuthError(`Authentication failed (${errCode || 'Error'}). If you just deployed on Vercel, please make sure you have: 1. Enabled the Google Sign-In provider in your Firebase Console. 2. Added "${window.location.hostname}" to "Authorized Domains" under Authentication Settings inside the Firebase Console.`);
       }
     }
   };
@@ -54,13 +60,19 @@ export const Welcome: React.FC = () => {
         </p>
 
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button 
               onClick={() => handleSignIn(false)}
-              className="flex items-center justify-center gap-3 px-8 py-4 bg-yellow-400 text-black font-black rounded-full hover:bg-yellow-300 transition-all group shadow-xl shadow-yellow-500/20 uppercase tracking-widest"
+              className="flex items-center justify-center gap-3 px-8 py-4 bg-yellow-400 text-black font-black rounded-full hover:bg-yellow-300 transition-all group shadow-xl shadow-yellow-500/20 uppercase tracking-widest text-xs"
             >
               Get Started with Google
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button 
+              onClick={() => handleSignIn(true)}
+              className="px-6 py-4 bg-slate-150 hover:bg-slate-200 text-slate-700 font-bold rounded-full transition-all text-xs uppercase tracking-widest border border-slate-200"
+            >
+              Sign In (Redirect Fallback)
             </button>
           </div>
 
@@ -68,10 +80,13 @@ export const Welcome: React.FC = () => {
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center justify-center gap-3 text-red-400 text-sm max-w-md mx-auto"
+              className="p-5 bg-red-500/10 border border-red-500/20 rounded-2xl flex flex-col md:flex-row items-center gap-3 text-red-500 text-sm max-w-xl mx-auto text-left shadow-lg"
             >
-              <AlertCircle className="w-5 h-5 shrink-0" />
-              <p>{authError}</p>
+              <AlertCircle className="w-6 h-6 shrink-0 text-red-500" />
+              <div>
+                <p className="font-bold">Authentication Diagnostic Guide</p>
+                <p className="text-xs leading-relaxed mt-1">{authError}</p>
+              </div>
             </motion.div>
           )}
 
