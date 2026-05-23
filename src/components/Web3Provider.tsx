@@ -5,7 +5,7 @@ import React from 'react';
 
 // Define Arc Testnet custom chain
 export const arcTestnet = {
-  id: 5116,
+  id: 1244,
   name: 'Arc Testnet',
   network: 'arc-testnet',
   nativeCurrency: {
