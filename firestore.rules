@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Validation Helpers ---
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email']) 
+        && data.uid == request.auth.uid
+        && data.email is string
+        && ( !('monthlyBudget' in data) || data.monthlyBudget is number )
+        && ( !('currency' in data) || data.currency is string );
+    }
+
+    function isValidSubscription(data) {
+      return data.keys().hasAll(['name', 'amount', 'currency', 'frequency', 'nextPaymentDate', 'status', 'userId'])
+        && data.userId == request.auth.uid
+        && data.name is string && data.name.size() <= 100
+        && data.amount is number && data.amount >= 0
+        && data.currency is string && data.currency.size() == 3
+        && data.frequency in ['monthly', 'yearly', 'weekly']
+        && data.status in ['active', 'paused', 'cancelled']
+        && data.nextPaymentDate is timestamp;
+    }
+
+    function isValidPayment(data) {
+      return data.keys().hasAll(['subscriptionId', 'amount', 'currency', 'date', 'status', 'userId'])
+        && data.userId == request.auth.uid
+        && data.subscriptionId is string
+        && data.amount is number && data.amount >= 0
+        && data.currency is string && data.currency.size() == 3
+        && data.status in ['completed', 'failed', 'pending']
+        && data.date is timestamp;
+    }
+
+    // --- Match Groups ---
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow update: if isOwner(userId) && isValidUser(incoming())
+        && incoming().diff(existing()).affectedKeys().hasOnly(['monthlyBudget', 'currency', 'email']);
+      
+      match /subscriptions/{subscriptionId} {
+        allow list: if isOwner(userId);
+        allow get: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidSubscription(incoming());
+        allow update: if isOwner(userId) && isValidSubscription(incoming())
+          && (
+            // Action: Pause/Resume/Cancel
+            incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt']) ||
+            // Action: Edit
+            incoming().diff(existing()).affectedKeys().hasOnly(['name', 'amount', 'currency', 'frequency', 'nextPaymentDate', 'spendingLimit', 'updatedAt'])
+          );
+        allow delete: if isOwner(userId);
+      }
+
+      match /payments/{paymentId} {
+        allow list: if isOwner(userId);
+        allow get: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidPayment(incoming());
+        // Payments are generally immutable once completed, but allow creation
+      }
+    }
+  }
+}
