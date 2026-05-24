@@ -2,6 +2,7 @@ import { createConfig, http, WagmiProvider } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
+import { injected, metaMask, coinbaseWallet, mock } from 'wagmi/connectors';
 
 // Define Arc Testnet custom chain
 export const arcTestnet = {
@@ -25,6 +26,14 @@ export const arcTestnet = {
 
 const config = createConfig({
   chains: [arcTestnet, mainnet],
+  connectors: [
+    injected(),
+    metaMask(),
+    coinbaseWallet({ appName: 'SubZero' }),
+    mock({
+      accounts: ['0x71C7656EC7ab88b098defB751B7401B5f6d8976F'],
+    }),
+  ],
   transports: {
     [arcTestnet.id]: http(),
     [mainnet.id]: http(),

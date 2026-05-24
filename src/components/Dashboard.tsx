@@ -955,6 +955,13 @@ export const Dashboard: React.FC = () => {
         label="Config"
         themeColor={colors.primary}
       />
+      <MobileNavButton
+        active={false}
+        onClick={() => auth.signOut()}
+        icon={<LogOut className="w-5 h-5" />}
+        label="Log Out"
+        themeColor="rose-500"
+      />
     </nav>
   </div>
 </div>
