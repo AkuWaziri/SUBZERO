@@ -11,11 +11,13 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chain } = useAccount();
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
   const { switchChain } = useSwitchChain();
   const chainId = useChainId();
+
+  const isArcChain = isConnected && (chain?.id === arcTestnet.id || chainId === arcTestnet.id);
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-1.5">
@@ -53,7 +55,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               </div>
 
               <div className="flex items-center gap-2">
-                {chainId !== arcTestnet.id && (
+                {isArcChain ? (
+                  <span className="px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-widest border border-emerald-100 flex items-center gap-1.5 shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Connected
+                  </span>
+                ) : (
                   <button 
                     onClick={() => switchChain({ chainId: arcTestnet.id })}
                     className="px-3 py-1.5 rounded-full bg-yellow-400 text-black text-[10px] font-black uppercase tracking-tighter hover:bg-yellow-300 transition-colors shadow-sm"
