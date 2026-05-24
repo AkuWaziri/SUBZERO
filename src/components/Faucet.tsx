@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
-import { Droplets, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+import { Droplets, ArrowRight, CheckCircle2, Loader2, ExternalLink } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { formatCurrency } from '../lib/utils';
 
@@ -76,7 +76,25 @@ export const Faucet: React.FC<FaucetProps> = ({ walletBalance, onMint }) => {
         </button>
       </div>
 
-      <p className="text-[10px] text-slate-400 font-medium"> Tokens are for testnet use only and hold no real value. Limit: 1 mint per 24 hours.</p>
+      <div className="pt-5 border-t border-slate-100 space-y-4">
+        <p className="text-[10px] text-slate-400 font-medium">Tokens are for local simulation; they hold no real value. Limit: 1 mint per 24 hours.</p>
+        
+        <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-0.5">
+            <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest">Real Arc Testnet USDC</h4>
+            <p className="text-slate-500 text-[10px]">Need real on-chain testnet USDC in your web3 wallet?</p>
+          </div>
+          <a
+            href="https://thirdweb.com/arc-testnet"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-[10px] uppercase tracking-wider transition-colors shadow-sm shadow-blue-500/10 shrink-0"
+          >
+            Claim on thirdweb
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

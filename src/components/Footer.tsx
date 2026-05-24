@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
         <div className="flex items-center gap-4">
           <Brand size="xs" />
           <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 hidden sm:block">
-            © 2026 SubZero Protocol. Built for Arc Testnet.
+            © 2026 SubZero Protocol. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-700 font-extrabold">POWERED BY ARC NETWORK</span>
           </p>
         </div>
         

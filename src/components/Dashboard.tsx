@@ -809,16 +809,16 @@ export const Dashboard: React.FC = () => {
                       <div className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-black shrink-0 text-slate-700 border border-slate-100">2</div>
                         <div>
-                          <p className="text-xs font-bold text-slate-900">Switch to Arc Testnet</p>
-                          <p className="text-slate-500 text-[11px] leading-relaxed">Simply click the Switch to Arc banner to automatically add and register Arc chain parameters in your wallet extension.</p>
+                          <p className="text-xs font-bold text-slate-900">Switch Wallet Network</p>
+                          <p className="text-slate-500 text-[11px] leading-relaxed">Ensure your wallet is switched to the Arc Testnet chain to sign valid testing transactions.</p>
                         </div>
                       </div>
 
                       <div className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-black shrink-0 text-slate-700 border border-slate-100">3</div>
                         <div>
-                          <p className="text-xs font-bold text-slate-900">Mint 1,000 test USDC</p>
-                          <p className="text-slate-500 text-[11px] leading-relaxed">Use the Faucet interface on the left to mint test USDC. Our protocol listens and registers mock transactions instantly.</p>
+                          <p className="text-xs font-bold text-slate-900">Mint 1,000 Testnet USDC</p>
+                          <p className="text-slate-500 text-[11px] leading-relaxed">Use our local simulated faucet on the left for instant credits, or claim real on-chain Arc testnet tokens directly from the <a href="https://thirdweb.com/arc-testnet" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-bold inline-flex items-center gap-0.5">official thirdweb faucet <ExternalLink className="w-3 h-3" /></a>.</p>
                         </div>
                       </div>
                     </div>

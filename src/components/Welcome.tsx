@@ -51,12 +51,19 @@ export const Welcome: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="max-w-3xl w-full text-center space-y-12 z-10 m-auto"
       >
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900">
-          Manage Subscriptions <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-blue-600">on Arc.</span>
+        <div className="flex justify-center mb-4">
+          <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-extrabold uppercase tracking-[0.2em] shadow-md shadow-blue-500/20 border border-slate-800">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            Now Live on <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 font-extrabold">Arc Testnet</span>
+          </span>
+        </div>
+
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          Manage All Subscriptions <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 block mt-1">USDC & Mastercard.</span>
         </h1>
 
-        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-          Tracking USDC payments on Arc Network shouldn't be a headache. SubZero helps you monitor, pause, and optimize your recurring subscriptions in one secure dashboard.
+        <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          SubZero helps you seamlessly monitor, pause, and optimize recurring subscriptions spanning both Web3 USDC flows and traditional Mastercard payments in one unified dashboard, <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-700">powered by Arc Network</span>.
         </p>
 
         <div className="space-y-4">
@@ -65,14 +72,8 @@ export const Welcome: React.FC = () => {
               onClick={() => handleSignIn(false)}
               className="flex items-center justify-center gap-3 px-8 py-4 bg-yellow-400 text-black font-black rounded-full hover:bg-yellow-300 transition-all group shadow-xl shadow-yellow-500/20 uppercase tracking-widest text-xs"
             >
-              Get Started with Google
+              Get Started with Google (Email)
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button 
-              onClick={() => handleSignIn(true)}
-              className="px-6 py-4 bg-slate-150 hover:bg-slate-200 text-slate-700 font-bold rounded-full transition-all text-xs uppercase tracking-widest border border-slate-200"
-            >
-              Sign In (Redirect Fallback)
             </button>
           </div>
 
@@ -96,7 +97,7 @@ export const Welcome: React.FC = () => {
         </div>
 
         {/* Features Bento */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-16">
           <FeatureCard 
             icon={<Globe className="w-6 h-6 text-blue-500" />}
             title="Arc Network"
@@ -111,6 +112,21 @@ export const Welcome: React.FC = () => {
             icon={<BarChart3 className="w-6 h-6 text-slate-500" />}
             title="Budget Insights"
             description="Visualize where your money goes every month."
+          />
+          <FeatureCard 
+            icon={<CreditCard className="w-6 h-6 text-emerald-500" />}
+            title="Subscription Control"
+            description="Instantly toggle, pause, or terminate recurring USDC flows."
+          />
+          <FeatureCard 
+            icon={<ShieldCheck className="w-6 h-6 text-indigo-500" />}
+            title="Secure Vault"
+            description="Safe email-authenticated database storing key billing parameters."
+          />
+          <FeatureCard 
+            icon={<AlertCircle className="w-6 h-6 text-rose-500" />}
+            title="Real-time Simulation"
+            description="Claim USDC testnet credits and track transactions on an live interface."
           />
         </div>
       </motion.div>
