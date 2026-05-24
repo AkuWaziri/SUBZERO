@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
           </div>
           <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-emerald-400" />
-            Mainnet Q4 2026
+            Mainnet Q3, 2026
           </span>
         </div>
       </div>
