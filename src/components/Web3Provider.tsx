@@ -14,8 +14,8 @@ export const arcTestnet = {
     symbol: 'ARC',
   },
   rpcUrls: {
-    default: { http: ['https://rpc.testnet.arc.network'] },
-    public: { http: ['https://rpc.testnet.arc.network'] },
+    default: { http: ['https://rpc.testnet.arc.network', 'https://arc-testnet.drpc.org'] },
+    public: { http: ['https://rpc.testnet.arc.network', 'https://arc-testnet.drpc.org'] },
   },
   blockExplorers: {
     default: { name: 'ArcScan', url: 'https://testnet.arcscan.app' },
