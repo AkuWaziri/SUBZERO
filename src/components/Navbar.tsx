@@ -18,19 +18,20 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const { user } = useAuth();
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-1.5">
+    <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 px-3 sm:px-6 py-1.5">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Brand size="xs" showText={true} />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           {!user ? (
             <button 
               onClick={() => signInWithGoogle()}
-              className="flex items-center justify-center gap-2 py-2 px-5 bg-blue-600 text-white font-black text-xs uppercase tracking-widest rounded-full hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 transition-all cursor-pointer border border-transparent"
+              className="flex items-center justify-center gap-2 py-2 px-3 sm:px-5 bg-blue-600 text-white font-black text-[10px] sm:text-xs uppercase tracking-widest rounded-full hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 transition-all cursor-pointer border border-transparent shrink-0"
             >
-              Get Started with Google
+              <span className="hidden sm:inline">Get Started with Google</span>
+              <span className="sm:hidden">Get Started</span>
             </button>
           ) : (
             <>

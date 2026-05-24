@@ -974,7 +974,7 @@ export const Dashboard: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg bg-white border border-slate-100 rounded-[2.5rem] p-8 shadow-2xl overflow-hidden"
+              className="relative w-full max-w-lg bg-white border border-slate-100 rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 shadow-2xl overflow-hidden"
             >
               {/* AI Glow */}
               <div className={cn("absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-10", `bg-${colors.secondary}`)} />

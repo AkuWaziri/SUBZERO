@@ -164,13 +164,19 @@ export const Welcome: React.FC = () => {
               </p>
 
               <div className="space-y-4 w-full">
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start items-stretch sm:items-center">
                   <button 
                     onClick={() => handleSignIn(false)}
-                    className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-yellow-400 text-black font-black rounded-full hover:bg-yellow-300 transition-all group shadow-xl shadow-yellow-500/20 uppercase tracking-widest text-xs cursor-pointer"
+                    className="flex items-center justify-center gap-3 px-6 sm:px-8 py-4 bg-yellow-400 text-black font-black rounded-full hover:bg-yellow-300 transition-all group shadow-xl shadow-yellow-500/10 uppercase tracking-widest text-xs cursor-pointer min-h-[48px]"
                   >
-                    Get Started with Google (Email)
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform cursor-pointer" />
+                    Get Started (Popup)
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform cursor-pointer" />
+                  </button>
+                  <button 
+                    onClick={() => handleSignIn(true)}
+                    className="flex items-center justify-center gap-3 px-6 py-4 bg-slate-900 hover:bg-slate-800 text-white font-black rounded-full transition-all shadow-lg uppercase tracking-widest text-xs cursor-pointer min-h-[48px] border border-slate-800"
+                  >
+                    Redirect Fallback
                   </button>
                 </div>
 
@@ -189,7 +195,7 @@ export const Welcome: React.FC = () => {
                 )}
 
                 <p className="text-xs text-slate-500 font-medium">
-                  Make sure to allow popups in your browser settings.
+                  We recommend the <strong>Redirect Fallback</strong> for mobile browsers and nested iframes.
                 </p>
               </div>
             </div>
