@@ -6,17 +6,17 @@ import { injected, metaMask, coinbaseWallet, mock } from 'wagmi/connectors';
 
 // Define Arc Testnet custom chain
 export const arcTestnet = {
-  id: 1244,
+  id: 5042002,
   name: 'Arc Testnet',
   network: 'arc-testnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'Arc',
-    symbol: 'ARC',
+    name: 'USD Coin',
+    symbol: 'USDC',
   },
   rpcUrls: {
-    default: { http: ['https://rpc.testnet.arc.network', 'https://arc-testnet.drpc.org'] },
-    public: { http: ['https://rpc.testnet.arc.network', 'https://arc-testnet.drpc.org'] },
+    default: { http: ['https://rpc.testnet.arc.network'] },
+    public: { http: ['https://rpc.testnet.arc.network'] },
   },
   blockExplorers: {
     default: { name: 'ArcScan', url: 'https://testnet.arcscan.app' },
